@@ -2,7 +2,7 @@
 
 <h1>Paths</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -13,8 +13,7 @@
   <tbody>
     <% @paths.each do |path| %>
       <tr>
-        <td><%= path.name %></td>
-        <td><%= link_to 'Show', path %></td>
+        <td class="mr-auto"><%= link_to path.name, path %></td>
         <td><%= link_to 'Edit', edit_path_path(path) %></td>
         <td><%= link_to 'Destroy', path, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -24,4 +23,4 @@
 
 <br>
 
-<%= link_to 'New Path', new_path_path %>
+<%= link_to 'New Path', new_path_path, class: "btn btn-primary" %>

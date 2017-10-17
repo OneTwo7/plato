@@ -1,0 +1,10 @@
+"use strict";
+var lessonId = "<%= @lesson.id %>";
+var pathId = "<%= @path.id %>";
+var name = "<%= @lesson.name %>";
+var link = "<a class='list-group-item' data-remote='true'" +
+           "href='/paths/" + pathId + "?lesson_id=" + lessonId + "'>" +
+           name + "</a>";
+$(".list-group").eq(1).append($(link));
+$("#lesson_name").val("");
+$("#content").replaceWith($("<%= escape_javascript(render 'content') %>"));

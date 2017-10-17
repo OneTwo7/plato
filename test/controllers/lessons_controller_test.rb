@@ -2,47 +2,48 @@ require 'test_helper'
 
 class LessonsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @path = paths(:one)
     @lesson = lessons(:one)
   end
 
   test "should get index" do
-    get lessons_url
+    get path_lessons_url(@path)
     assert_response :success
   end
 
   test "should get new" do
-    get new_lesson_url
+    get new_path_lesson_url(@path)
     assert_response :success
   end
 
   test "should create lesson" do
     assert_difference('Lesson.count') do
-      post lessons_url, params: { lesson: { content: @lesson.content, name: @lesson.name, path_id: @lesson.path_id } }
+      post path_lessons_url(@path), params: { lesson: { content: @lesson.content, name: @lesson.name } }
     end
 
-    assert_redirected_to lesson_url(Lesson.last)
+    assert_redirected_to @path
   end
 
   test "should show lesson" do
-    get lesson_url(@lesson)
+    get path_lesson_url(@path, @lesson)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_lesson_url(@lesson)
+    get edit_path_lesson_url(@path, @lesson)
     assert_response :success
   end
 
   test "should update lesson" do
-    patch lesson_url(@lesson), params: { lesson: { content: @lesson.content, name: @lesson.name, path_id: @lesson.path_id } }
-    assert_redirected_to lesson_url(@lesson)
+    patch path_lesson_url(@path, @lesson), params: { lesson: { content: @lesson.content, name: @lesson.name } }
+    assert_redirected_to path_lesson_url(@path, @lesson)
   end
 
   test "should destroy lesson" do
     assert_difference('Lesson.count', -1) do
-      delete lesson_url(@lesson)
+      delete path_lesson_url(@path, @lesson)
     end
 
-    assert_redirected_to lessons_url
+    assert_redirected_to @path
   end
 end

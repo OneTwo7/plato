@@ -1,0 +1,19 @@
+<div id="content">
+  <div id="content-buttons">
+    <button id="text-btn" type="button" class="btn btn-dark">Text</button>
+    <button id="code-btn" type="button" class="btn btn-dark">Code</button>
+    <button id="bash-btn" type="button" class="btn btn-dark">Bash</button>
+  </div>
+  <div id="content-field"></div>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+    var counter = 1;
+    $("#content-buttons button").click(function () {
+      window.appendInputField(this.id, counter++);
+    });
+    window.appendInputField("text-btn", 0);
+  }());
+</script>

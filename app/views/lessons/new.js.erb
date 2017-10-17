@@ -1,0 +1,6 @@
+"use strict";
+$(".list-group .active").removeClass("active");
+$(".path-buttons").children().eq(0).addClass("active");
+var header = "<h1>New Lesson</h1>";
+var form = "<%= escape_javascript(render 'form') %>";
+$("#lesson").html(header + form);

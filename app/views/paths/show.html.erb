@@ -1,9 +1,40 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @path.name %>
-</p>
+<p class="text-center lead"><%= @path.name %></p>
 
-<%= link_to 'Edit', edit_path_path(@path) %> |
-<%= link_to 'Back', paths_path %>
+<% if @path.lessons.any? %>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="list-group path-buttons">
+        <%= link_to 'New lesson', new_path_lesson_path(@path),
+            class: "list-group-item", remote: true %>
+        <%= link_to 'Edit', edit_path_path(@path), class: "list-group-item" %>
+        <%= link_to 'Back', paths_path, class: "list-group-item list-group-item-dark" %>
+      </div>
+      <div class="list-group">
+        <% @path.lessons.each do |lesson| %>
+          <% lesson_class = "list-group-item" %>
+          <% lesson_class += " active" if lesson.id == @lesson.id %>
+          <%= link_to lesson.name, path_path(@path, lesson_id: lesson.id),
+              class: lesson_class, remote: true %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <%= render 'lessons/lesson', lesson: @lesson %>
+    </div>
+  </div>
+<% else %>
+  <div class="path-buttons">
+    <%= link_to 'New lesson', new_path_lesson_path(@path), class: "btn btn-primary" %>
+    <%= link_to 'Edit', edit_path_path(@path), class: "btn btn-secondary" %>
+    <%= link_to 'Back', paths_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
+
+<script>
+  (function () {
+    "use strict";
+    window.prepareLesson($("#lesson"));
+  }());
+</script>

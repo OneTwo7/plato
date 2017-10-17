@@ -10,6 +10,15 @@ class PathsController < ApplicationController
   # GET /paths/1
   # GET /paths/1.json
   def show
+    if params[:lesson_id].nil?
+      @lesson = @path.lessons.first
+    else
+      @lesson = @path.lessons.find(params[:lesson_id])
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /paths/new

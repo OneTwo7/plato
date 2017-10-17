@@ -10,6 +10,10 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Code Prettify -->
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <!-- Bootstrap CSS -->
@@ -17,8 +21,13 @@
   </head>
 
   <body>
+    <%= render 'layouts/header' %>
     <main class="container">
       <%= yield %>
+
+      <hr>
+
+      <%= render 'layouts/footer' %>
 
       <section>
         <%= debug(params) if Rails.env.development? %>

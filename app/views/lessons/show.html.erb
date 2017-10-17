@@ -15,5 +15,5 @@
   <%= @lesson.path %>
 </p>
 
-<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
-<%= link_to 'Back', lessons_path %>
+<%= link_to 'Edit', edit_path_lesson_path(@path, @lesson) %> |
+<%= link_to 'Back', path_lessons_path(@path) %>

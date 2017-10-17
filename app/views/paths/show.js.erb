@@ -1,0 +1,14 @@
+"use strict";
+$(".list-group .active").removeClass("active");
+var pathId = "<%= @path.id %>";
+var lessonId = "<%= @lesson.id %>";
+var $link = $("a[href='/paths/" + pathId + "?lesson_id=" + lessonId + "']");
+$link.addClass("active");
+var $lesson = $("<%= escape_javascript(render 'lessons/lesson', lesson: @lesson) %>").hide();
+$("#lesson").replaceWith($lesson);
+window.recVenomize($lesson);
+$lesson.fadeIn("slow");
+var offset = $("main").offset()["top"];
+if (!($(window).scrollTop() < offset)) {
+  $("html, body").animate({ scrollTop: 0 }, "fast");
+}

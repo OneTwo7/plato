@@ -1,32 +1,79 @@
-<%= form_for(lesson) do |f| %>
-  <% if lesson.errors.any? %>
+<%= form_for([@path, @lesson], remote: true) do |f| %>
+  <% if @lesson.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+      <p><%= pluralize(@lesson.errors.count, "error") %> prohibited this @lesson from being saved:</p>
 
       <ul>
-      <% lesson.errors.full_messages.each do |message| %>
+      <% @lesson.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :content %>
-    <%= f.text_area :content %>
+    <%= render 'content' %>
   </div>
 
-  <div class="field">
-    <%= f.label :path_id %>
-    <%= f.text_field :path_id %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit class: 'btn btn-primary' %>
+  <%= link_to 'Back', path_path(@path, lesson_id: @lesson.id),
+      class: 'btn btn-secondary' %>
 <% end %>
+
+<script>
+  (function () {
+    "use strict";
+    $("input[type='submit']").click(function (event) {
+      event.preventDefault();
+      var name = $("#lesson_name").val();
+      if (name.length < 4 || name.length > 55) {
+        alert("Name should be inside 4..55 letters range!");
+        return;
+      }
+      var emptyFields = false;
+      $(".target-field").each(function () {
+        if ($(this).html().length < 12) {
+          alert("There shouldn't be empty fields!");
+          emptyFields = true;
+        }
+      });
+      if (emptyFields) {
+        return;
+      }
+      var content = "";
+      var $divs = $("#content-field").children();
+      $divs.each(function () {
+        var $this = $(this);
+        var id = $this.attr("id");
+        var cl = $this.attr("class");
+        var $targetField = $this.find(".target-field");
+        var html = "";
+        $targetField.children().each(function () {
+          window.recSanitize($(this));
+        });
+        html += $targetField.html();
+        content += "<pre id='" + id + "' class='" + cl + "'>" + html + "</pre>";
+      });
+      $.ajax({
+        type: "POST",
+        url: $("#new_lesson").attr("action"),
+        dataType: "script",
+        data: { lesson: { name: name, content: content } },
+        success: function (data) {
+          console.log(data);
+          return false;
+        },
+        error: function (data) {
+          console.log(data);
+          return false;
+        }
+      });
+    });
+  }());
+</script>
