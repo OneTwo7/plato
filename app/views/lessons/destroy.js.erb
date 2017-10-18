@@ -1,15 +1,18 @@
+<% first = @path.lessons.first %>
+
 "use strict";
 var lessonId = "<%= @id %>";
-var pathId = "<%= @path_id %>";
-var fId = "<%= @first_lesson.id %>";
+var pathId = "<%= @path.id %>";
 var $link = $("a[href='/paths/" + pathId + "?lesson_id=" + lessonId + "']");
-var $new = $("a[href='/paths/" + pathId + "?lesson_id=" + fId + "']");
-if ($link) {
-  $link.remove();
-}
-if ($new) {
+$link.remove();
+
+if ("<%= first %>".length > 0) {
+  var fId = "<%= first.id unless first.nil? %>";
+  var $new = $("a[href='/paths/" + pathId + "?lesson_id=" + fId + "']");
   $new.addClass("active");
+  var $lesson = $("<%= escape_javascript(render 'lesson', lesson: first) unless first.nil? %>");
+  window.prepareLesson($lesson);
+  $("#lesson").replaceWith($lesson);
+} else {
+  $("#lesson").empty();
 }
-var $lesson = $("<%= escape_javascript(render 'lesson', lesson: @first_lesson) %>");
-window.prepareLesson($lesson);
-$("#lesson").replaceWith($lesson);

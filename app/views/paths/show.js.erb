@@ -6,7 +6,7 @@ var $link = $("a[href='/paths/" + pathId + "?lesson_id=" + lessonId + "']");
 $link.addClass("active");
 var $lesson = $("<%= escape_javascript(render 'lessons/lesson', lesson: @lesson) %>").hide();
 $("#lesson").replaceWith($lesson);
-window.recVenomize($lesson);
+window.prepareLesson($lesson);
 $lesson.fadeIn("slow");
 var offset = $("main").offset()["top"];
 if (!($(window).scrollTop() < offset)) {

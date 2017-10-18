@@ -1,7 +1,10 @@
 <div id="lesson">
-  <h1><%= lesson.name %></h1>
-  <%= lesson.content.html_safe %>
-  <%= link_to 'Edit', edit_path_lesson_path(@path, lesson) %>
-  <%= link_to 'Delete', path_lesson_path(@path, lesson),
-      method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+  <% unless lesson.nil? %>
+    <h1><%= lesson.name %></h1>
+    <%= lesson.content.html_safe %>
+    <%= link_to 'Edit', edit_path_lesson_path(@path, lesson) %>
+    <%= link_to 'Delete', path_lesson_path(@path, lesson),
+        method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+  <% end %>
 </div>
+  

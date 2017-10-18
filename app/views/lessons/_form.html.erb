@@ -64,15 +64,7 @@
         type: "POST",
         url: $("#new_lesson").attr("action"),
         dataType: "script",
-        data: { lesson: { name: name, content: content } },
-        success: function (data) {
-          console.log(data);
-          return false;
-        },
-        error: function (data) {
-          console.log(data);
-          return false;
-        }
+        data: { lesson: { name: name, content: content } }
       });
     });
   }());

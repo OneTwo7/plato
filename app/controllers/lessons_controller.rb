@@ -61,8 +61,6 @@ class LessonsController < ApplicationController
   # DELETE /lessons/1.json
   def destroy
     @id = params[:id]
-    @path_id = params[:path_id]
-    @first_lesson = @path.lessons.first
     @lesson.destroy
     respond_to do |format|
       format.html { redirect_to @path, notice: 'Lesson was successfully destroyed.' }
